@@ -1,22 +1,32 @@
 {
 	"info": {
-		"_postman_id": "0f82ad67-f5be-4265-90ab-b82a5addfa0d",
+		"_postman_id": "1e9c1998-4c4a-4967-804a-de4dd663a971",
 		"name": "Microsserviço A",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "21910288"
 	},
 	"item": [
 		{
-			"name": "Dados do cliente",
+			"name": "Dados do cliente (Rotas privadas)",
 			"item": [
 				{
 					"name": "Criar",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cpf\":\"840.877.710-71\",\r\n    \"listaDeBens\":[\"imóvel\",\"carro\"],\r\n    \"fontesDeRenda\":[\"salário\",\"aluguel\"],\r\n    \"idade\": 45,\r\n    \"endereco\": \"Rua Teste, 123\"\r\n}",
+							"raw": "{\r\n    \"nome\":\"Paulo2\",\r\n    \"cpf\":\"114.847.111.8711\",\r\n    \"endereco\": \"Rua Teste, 123\",\r\n    \"listaDeDividas\":[\"Vivo\",\"Claro\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -38,6 +48,16 @@
 				{
 					"name": "Consultar todos",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -55,16 +75,32 @@
 				{
 					"name": "Consultar por ID",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/dadosPessoa/id",
+							"raw": "{{URL}}/dadosPessoa/:id",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"dadosPessoa",
-								"id"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
 							]
 						}
 					},
@@ -73,16 +109,41 @@
 				{
 					"name": "Atualizar",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cpf\":\"059\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{URL}}/dadosPessoa/id",
+							"raw": "{{URL}}/dadosPessoa/:id",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"dadosPessoa",
-								"id"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
 							]
 						}
 					},
@@ -91,16 +152,32 @@
 				{
 					"name": "Remover",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/dadosPessoa/id",
+							"raw": "{{URL}}/dadosPessoa/:id",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"dadosPessoa",
-								"id"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
 							]
 						}
 					},
@@ -114,11 +191,14 @@
 				{
 					"name": "Criar",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cpf\":\"840.877.710-71\",\r\n    \"listaDeBens\":[\"imóvel\",\"carro\"],\r\n    \"fontesDeRenda\":[\"salário\",\"aluguel\"],\r\n    \"idade\": 45,\r\n    \"endereco\": \"Rua Teste, 123\"\r\n}",
+							"raw": "{\r\n    \"nome\":\"Paulo212\",\r\n    \"email\":\"paulo2@gmail124\",\r\n    \"senha\":\"123\",\r\n    \"confirmacaoDeSenha\":\"123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -132,6 +212,33 @@
 							],
 							"path": [
 								"usuario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"paulo2@gmail\",\r\n    \"senha\":\"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/usuario/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"usuario",
+								"login"
 							]
 						}
 					},
@@ -160,30 +267,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/usuario",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"usuario"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Atualizar",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/usuario/id",
+							"raw": "{{URL}}/usuario/:id",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"usuario",
-								"id"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
 							]
 						}
 					},
@@ -195,13 +291,19 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/usuario/id",
+							"raw": "{{URL}}/usuario/:id",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"usuario",
-								"id"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
 							]
 						}
 					},
@@ -224,10 +326,35 @@
 			"response": []
 		}
 	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
 	"variable": [
 		{
 			"key": "URL",
 			"value": "http://localhost:3000"
+		},
+		{
+			"key": "TOKEN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDg4NTViZmZjNGYzYTczYTQwZmZlMSIsImlhdCI6MTY4MjQ3NjQxMn0.mC-M4kbXjxeakXK3T0mNVrl7pCqaw2SFcrW1w9OAJRo",
+			"type": "string"
 		}
 	]
 }
