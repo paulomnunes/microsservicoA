@@ -43,7 +43,6 @@ router.get('/', (req, res) => {
                     getAll: { method: 'GET', url: '/usuario' },
                     getById: { method: 'GET', url: '/usuario/:id' },
                     create: { method: 'POST', url: '/usuario' },
-                    update: { method: 'PATCH', url: '/usuario/:id' },
                     delete: { method: 'DELETE', url: '/usuario/:id' },
                     login: { method: 'POST', url: '/usuario/login' }
                 }

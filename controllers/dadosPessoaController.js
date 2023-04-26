@@ -85,34 +85,46 @@ const dadosPessoaController = {
         }
     },
     update: async (req, res) => {
+        const id = req.params.id
+        const { cpf, nome, endereco, listaDeDividas } = req.body
+        const dadosPessoa = {};
+
+        if (cpf) {
+            dadosPessoa.cpf = cpf;
+        }
+
+        if (nome) {
+            dadosPessoa.nome = nome;
+        }
+
+        if (endereco) {
+            dadosPessoa.endereco = endereco;
+        }
+
+        if (listaDeDividas) {
+            dadosPessoa.listaDeDividas = listaDeDividas;
+        }
+
         try {
-            const id = req.params.id;
 
-            const dadosPessoa = {
-                cpf: req.body.cpf,
-                nome: req.body.nome,
-                endereco: req.body.endereco,
-                listaDeDividas: req.body.listaDeDividas,
-            };
-
-            console.log(dadosPessoa)
             if (!dadosPessoa.cpf && !dadosPessoa.nome && !dadosPessoa.endereco && !dadosPessoa.listaDeDividas) {
                 return res.status(422).json({ msg: "Nenhum dado para alterar informado" });
             }
 
-            const updateDadoscliente = await DadosPessoaModel.findByIdAndUpdate(id, dadosPessoa);
+            const update = await DadosPessoaModel.updateOne({ _id: id }, dadosPessoa);
 
-            if (!updateDadoscliente) {
-                res.status(404).json({ msg: "Dados do cliente não encontrado" });
-                return;
+
+            if (update.nModified === 0) {
+                return res.status(404).json({ message: 'Não foram encontrados dados correspondentes ao ID informado.' });
             }
 
-            res.status(200).json({ dadosPessoa, msg: "Dados do cliente atualizado com sucesso" });
+            res.status(200).json({ dadosPessoa, message: 'Dados atualizados com sucesso.' });
+
         } catch (error) {
             if (error.kind === 'ObjectId') {
                 return res.status(400).json({ message: 'ID inválido.' });
             }
-            res.status(500).json({ message: 'Erro ao atualizar os dados do ID informado.', error })
+            res.status(500).json({ message: 'Erro ao atualizar os dados do ID informado.', error });
         }
     }
 }
